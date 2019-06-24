@@ -196,11 +196,11 @@ class StatementsAnalyzer extends SourceAnalyzer implements StatementsSource
                 fwrite(STDERR, $this->getFilePath() . ':' . $stmt->getLine() . "\n");
             }
 
-            /*
-            if (isset($context->vars_in_scope['$array']) && !$stmt instanceof PhpParser\Node\Stmt\Nop) {
-                var_dump($stmt->getLine(), $context->vars_in_scope['$array']);
+            ///*
+            if (isset($context->vars_in_scope['$this->_array_value']) && !$stmt instanceof PhpParser\Node\Stmt\Nop) {
+                var_dump($stmt->getLine() . ' ' . spl_object_id($context->vars_in_scope['$this->_array_value']) . ' ' . $context->vars_in_scope['$this->_array_value']);
             }
-            */
+            //*/
 
             $new_issues = null;
 

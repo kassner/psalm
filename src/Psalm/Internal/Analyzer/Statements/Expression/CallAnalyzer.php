@@ -2715,6 +2715,8 @@ class CallAnalyzer
         );
 
         if ($var_id) {
+            $input_type = clone $input_type;
+
             if ($input_type->isNullable() && !$param_type->isNullable()) {
                 $input_type->removeType('null');
             }
