@@ -548,6 +548,46 @@ class ConfigTest extends \Psalm\Tests\TestCase
         );
     }
 
+    public function testImplicitToStringCastReferencedClass()
+    {
+        $this->project_analyzer = $this->getProjectAnalyzerWithConfig(
+            TestConfig::loadFromXML(
+                dirname(__DIR__, 2),
+                '<?xml version="1.0"?>
+                <psalm>
+                    <issueHandlers>
+                        <ImplicitToStringCast>
+                            <errorLevel type="suppress">
+                                <referencedClass name="A" />
+                            </errorLevel>
+                        </ImplicitToStringCast>
+                    </issueHandlers>
+                </psalm>'
+            )
+        );
+
+        $file_path = getcwd() . '/src/somefile.php';
+
+        $this->addFile(
+            $file_path,
+            '<?php
+
+            class A {
+              public function __toString() {
+                return "A";
+              }
+            }
+
+            function write(string $text):void {
+              echo $text;
+            }
+
+            write(new A());'
+        );
+
+        $this->analyzeFile($file_path, new Context());
+    }
+
     /**
      * @return void
      */

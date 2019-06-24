@@ -2419,7 +2419,8 @@ class CallAnalyzer
                 new ImplicitToStringCast(
                     'Argument ' . ($argument_offset + 1) . $method_identifier . ' expects ' .
                         $param_type->getId() . ', ' . $input_type->getId() . ' provided with a __toString method',
-                    $code_location
+                    $code_location,
+                    $input_type->getId()
                 ),
                 $statements_analyzer->getSuppressedIssues()
             )) {
